@@ -60,6 +60,38 @@ const NoButton = styled.button`
   transition: top 0.3s ease-in-out, left 0.3s ease-in-out;
 `;
 
+const PopupOverlay = styled.div`
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.3);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+`;
+
+const PopupContent = styled.div`
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 8px;
+`;
+
+const Close = styled.button`
+  background-color: #b06161;
+  color: #eaeccc;
+  cursor: pointer;
+  height: 30px;
+  border-radius: 5px;
+`;
+
+const PopupText = styled.p`
+  color: #b06161;
+`;
+
+const PopupImage = styled.img``;
+
 const Home = () => {
   const initialPosition = { top: "75.5%", left: "55%" };
 
@@ -70,13 +102,22 @@ const Home = () => {
   };
 
   const [position, setPosition] = useState(initialPosition);
+  const [showPopup, setShowPopup] = useState(false);
+
+  const handleButtonClick = () => {
+    setShowPopup(true);
+  };
+
+  const handlePopupClose = () => {
+    setShowPopup(false);
+  };
 
   return (
     <Container>
       <Title>Would you like to go on date with me..??</Title>
       <Image src="https://media1.tenor.com/m/XZGm-kKjguMAAAAC/kawaii-bunny.gif"></Image>
       <ButtonContainer>
-        <YesButton>Yes</YesButton>
+        <YesButton onClick={() => handleButtonClick()}>Yes</YesButton>
         <NoButton
           position={position}
           onMouseEnter={() => setPosition(getRandomPosition())}
@@ -85,7 +126,21 @@ const Home = () => {
           No
         </NoButton>
       </ButtonContainer>
-      <Footer></Footer>
+      {showPopup && (
+        <PopupOverlay>
+          <PopupContent>
+            <PopupText>
+              Fantastic! I promise not to embarrass you too much... just a
+              little bit. 😄
+            </PopupText>
+            <PopupImage src="https://media.tenor.com/XSAxhvwMd9kAAAAj/tkthao219-bunny.gif" />
+            <br />
+            <br />
+            <Close onClick={handlePopupClose}>Close</Close>
+          </PopupContent>
+        </PopupOverlay>
+      )}
+      <Footer>Created by Shravani Kher...</Footer>
     </Container>
   );
 };
