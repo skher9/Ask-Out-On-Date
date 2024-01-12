@@ -29,6 +29,9 @@ const Footer = styled.div`
 
 const YesButton = styled.button`
   cursor: pointer;
+  position: absolute;
+  top: 75.5%;
+  left: 37%;
   border-color: #eaeccc;
   background-color: transparent;
   border-radius: 5px;
@@ -58,13 +61,15 @@ const NoButton = styled.button`
 `;
 
 const Home = () => {
+  const initialPosition = { top: "75.5%", left: "55%" };
+
   const getRandomPosition = () => {
     const top = `${Math.random() * 70}%`;
     const left = `${Math.random() * 70}%`;
     return { top, left };
   };
 
-  const [position, setPosition] = useState(getRandomPosition());
+  const [position, setPosition] = useState(initialPosition);
 
   return (
     <Container>
@@ -75,6 +80,7 @@ const Home = () => {
         <NoButton
           position={position}
           onMouseEnter={() => setPosition(getRandomPosition())}
+          onTouchStart={() => setPosition(getRandomPosition())}
         >
           No
         </NoButton>
